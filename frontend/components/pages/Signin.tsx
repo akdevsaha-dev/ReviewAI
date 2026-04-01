@@ -87,7 +87,7 @@ export const SignIn = () => {
           >
             {loading ? <Loader /> : "Log In"}
           </button>
-          <div className="h-[1px] bg-gradient-to-r from-transparent dark:via-[#8979ff] via-[#c3c3c7] to-transparent mt-10"></div>
+          <div className="h-px bg-linear-to-r from-transparent dark:via-[#8979ff] via-[#c3c3c7] to-transparent mt-10"></div>
           <div className="flex gap-5  mt-6">
             <button
               onClick={handleGoogleAuth}
