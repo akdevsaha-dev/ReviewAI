@@ -1,8 +1,10 @@
 import "dotenv/config";
 import express from "express";
-import type { Request, Response } from "express";
+import type { Response } from "express";
 import ngrok from "@ngrok/ngrok";
 import cors from "cors";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./utils/auth.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -15,7 +17,9 @@ app.use(
   }),
 );
 
-app.get("/", (req: Request, res: Response) => {
+app.all("/api/auth/{*any}", toNodeHandler(auth));
+
+app.get("/", (_, res: Response) => {
   res.send("Wow this is nice");
 });
 
