@@ -17,7 +17,7 @@ app.use(
   }),
 );
 
-app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.get("/", (_, res: Response) => {
   res.send("Wow this is nice");
