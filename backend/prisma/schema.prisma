@@ -71,6 +71,7 @@ model PullRequest {
   branch        String
   baseBranch    String
   repoName      String
+  author        String
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   workspaceId   String

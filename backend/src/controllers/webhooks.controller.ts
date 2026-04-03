@@ -20,6 +20,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
       const state = payload.pull_request.state;
       const branch = payload.pull_request.head.ref;
       const baseBranch = payload.pull_request.base.ref;
+      const author = payload.pull_request.user.login;
       const sha = payload.pull_request.head.sha;
       const installation = await prisma.githubAppInstallation.findFirst({
         where: {
@@ -30,7 +31,6 @@ export const webhookEvent = async (req: Request, res: Response) => {
         console.log("No GitHub installation found for this repo");
         return;
       }
-
       const pullRequest = await prisma.pullRequest.upsert({
         where: {
           id: `${installation.workspaceId}-${pull_number}-${sha}`,
@@ -40,6 +40,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
           description,
           state,
           branch,
+          author,
           baseBranch,
           updatedAt: new Date(),
         },
@@ -50,6 +51,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
           pullReqNumber: pull_number,
           state,
           branch,
+          author,
           repoName: repo,
           baseBranch,
           workspaceId: installation.workspaceId,

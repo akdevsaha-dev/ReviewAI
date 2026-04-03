@@ -8,7 +8,7 @@ import workspaceRoute from "./routes/workspace.route.js";
 import registerappRoute from "./routes/registerApp.route.js";
 import repoRoute from "./routes/repo.route.js";
 import webhookRoute from "./routes/webhooks.route.js";
-
+import dashboardRoute from "./routes/dashboard.route.js";
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
@@ -23,7 +23,7 @@ app.use(
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-app.use("/api/v1", workspaceRoute, repoRoute);
+app.use("/api/v1", workspaceRoute, repoRoute, dashboardRoute);
 app.use("/api/github", registerappRoute, webhookRoute);
 
 app.get("/api/me", async (req, res) => {
