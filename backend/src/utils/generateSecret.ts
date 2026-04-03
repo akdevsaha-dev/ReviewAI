@@ -12,9 +12,9 @@ export const generateSecret = () => {
 
   return jwt.sign(
     {
-      iat: now,
-      exp: now + 60 * 10,
-      iss: process.env.GITHUB_APP_ID,
+      iat: now - 60,
+      exp: now + 60 * 9,
+      iss: Number(process.env.GITHUB_APP_ID),
     },
     privateKey,
     {

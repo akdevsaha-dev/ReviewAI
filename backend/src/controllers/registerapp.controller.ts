@@ -96,8 +96,18 @@ export const registerApp = async (req: Request, res: Response) => {
         `${frontendUrl}/dashboard/${workspace.name}/${workspaceId}?connected=github`,
       );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Register app error:", error);
-    res.status(500).json(error);
+    if (error.response) {
+      console.error("GitHub API Error Response:", {
+        status: error.response.status,
+        data: error.response.data,
+      });
+      return res.status(error.response.status).json({
+        message: "GitHub API Error",
+        details: error.response.data,
+      });
+    }
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };

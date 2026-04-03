@@ -4,6 +4,6 @@ import { registerApp } from "../controllers/registerApp.controller.js";
 
 const router: Router = express.Router();
 
-router.post("/callback", authMiddleware, registerApp);
+router.get("/callback", authMiddleware, registerApp);
 
 export default router;

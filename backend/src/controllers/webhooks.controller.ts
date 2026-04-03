@@ -8,7 +8,10 @@ export const webhookEvent = async (req: Request, res: Response) => {
     const githubEvent = req.headers["x-github-event"];
     const payload = req.body;
     res.status(200).send("Webhook received");
-    if (githubEvent === "pull_request" && payload.action === "opened") {
+    if (
+      githubEvent === "pull_request" &&
+      (payload.action === "opened" || payload.action === "synchronize")
+    ) {
       const owner = payload.repository.owner.login;
       const repo = payload.repository.name;
       const pull_number = payload.pull_request.number;
@@ -17,6 +20,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
       const state = payload.pull_request.state;
       const branch = payload.pull_request.head.ref;
       const baseBranch = payload.pull_request.base.ref;
+      const sha = payload.pull_request.head.sha;
       const installation = await prisma.githubAppInstallation.findFirst({
         where: {
           accountLogin: owner,
@@ -29,7 +33,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
 
       const pullRequest = await prisma.pullRequest.upsert({
         where: {
-          id: `${installation.workspaceId}-${pull_number}`,
+          id: `${installation.workspaceId}-${pull_number}-${sha}`,
         },
         update: {
           title,
@@ -40,7 +44,7 @@ export const webhookEvent = async (req: Request, res: Response) => {
           updatedAt: new Date(),
         },
         create: {
-          id: `${installation.workspaceId}-${pull_number}`,
+          id: `${installation.workspaceId}-${pull_number}-${sha}`,
           title,
           description,
           pullReqNumber: pull_number,
@@ -54,6 +58,23 @@ export const webhookEvent = async (req: Request, res: Response) => {
       const installationIdNum = parseInt(installation.installationId, 10);
       const accessToken = await getInstallationAccessToken(installationIdNum);
       const octokit = new Octokit({ auth: accessToken });
+
+      const checkRunResponse = await octokit.request(
+        "POST /repos/{owner}/{repo}/check-runs",
+        {
+          owner,
+          repo,
+          name: "PRwise AI Review",
+          head_sha: sha,
+          status: "in_progress",
+          started_at: new Date().toISOString(),
+          headers: {
+            "X-GitHub-Api-Version": "2022-11-28",
+          },
+        },
+      );
+      const checkRunId = checkRunResponse.data.id;
+
       const { data: files } = await octokit.request(
         "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
         { owner, repo, pull_number },
@@ -93,6 +114,26 @@ ${parsed.suggestions}
           repo: repo,
           issue_number: pull_number,
           body,
+          headers: {
+            "X-GitHub-Api-Version": "2022-11-28",
+          },
+        },
+      );
+
+      await octokit.request(
+        "PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}",
+        {
+          owner,
+          repo,
+          check_run_id: checkRunId,
+          status: "completed",
+          completed_at: new Date().toISOString(),
+          conclusion: "success",
+          output: {
+            title: "PRwise AI Review",
+            summary: parsed.comment,
+            text: `Suggestions:\n${parsed.suggestions}\n\nBug Risk Score: ${parsed.bugRiskScore}`,
+          },
           headers: {
             "X-GitHub-Api-Version": "2022-11-28",
           },

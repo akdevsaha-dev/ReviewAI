@@ -6,3 +6,4 @@ const router: Router = express.Router();
 
 router.get("/repositories/:workspaceId", authMiddleware, getRepositories);
 router.get("/workspace/:workspaceId/repo-status", authMiddleware, repoStatus);
+export default router;
