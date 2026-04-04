@@ -32,7 +32,7 @@ export function Hero() {
     );
   }, []);
   return (
-    <div className="">
+    <div className="bg-neutral-950">
       <div className="min-h-[70vh] w-full relative flex flex-col">
         <div
           className="absolute inset-0 z-0 opacity-50"
@@ -103,7 +103,8 @@ export function Hero() {
         <div className="relative z-20 w-full flex items-center justify-center px-4">
           <div className="w-full max-w-7xl md:border-x md:border-x-neutral-700">
             <Image
-              src="/email-preview.png"
+              loading="eager"
+              src="/dashboard.png"
               width={1920}
               height={1080}
               alt="Newsletter preview"
@@ -131,19 +132,22 @@ export function Hero() {
             Review in seconds
           </div>
           <div className="px-10 mt-10">
-            <div className="min-h-80 max-w-150  bg-neutral-900 rounded-2xl text-center  flex items-center justify-center px-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-              harum qui dolorem in illo quo ipsa, vel ducimus hic nulla
-              molestias quae illum ex facilis laudantium, delectus placeat
-              praesentium aut debitis fugiat dolor. Quo ab voluptas reiciendis.
-              Rem, ratione officiis in deserunt labore voluptatum laudantium, at
-              quaerat obcaecati illo suscipit. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Maxime illum, perspiciatis tenetur
-              soluta deserunt aspernatur, distinctio cum quisquam laboriosam
-              architecto voluptatum amet quibusdam, doloribus nulla quasi qui
-              maiores nisi quam. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Earum deleniti ad sed quaerat tenetur dolor,
-              nostrum aspernatur beatae eveniet quisquam?
+            <div className="min-h-80 max-w-150 bg-neutral-900 rounded-2xl py-10 text-left text-neutral-400 font-semibold  flex items-center justify-center px-8">
+              Prwise is a developer-focused collaboration platform designed to
+              transform how code reviews happen in modern teams. Instead of
+              relying solely on human reviewers who may be busy or unavailable,
+              Prwise automatically analyzes pull requests and provides
+              intelligent feedback on code quality, structure, and potential
+              improvements. It helps developers identify bugs earlier, maintain
+              consistent coding standards, and learn better practices directly
+              within their workflow. By integrating seamlessly with existing
+              repositories and development pipelines, Prwise acts as a smart
+              assistant that reviews changes, suggests refinements, and
+              accelerates the entire development cycle. Whether you are an
+              individual developer working on personal projects or a team
+              maintaining large production systems, Prwise helps ensure that
+              every pull request is clearer, cleaner, and ready for production
+              faster.
             </div>
           </div>
         </motion.div>
@@ -162,7 +166,38 @@ export function Hero() {
         <div className="flex text-8xl text-neutral-400 text-center font-bold mt-40 items-center justify-center mask-[linear-gradient(to_bottom,black_20%,transparent)]">
           Experience the Future of Developer Experience
         </div>
-        <div className="flex justify-center text-xl text-center mt-10">
+        <div className="mt-44 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+          <div className="bg-neutral-900/60 backdrop-blur border border-neutral-800 rounded-2xl p-8 hover:border-neutral-600 transition">
+            <div className="text-xl font-semibold text-white mb-3">
+              Instant PR Summaries
+            </div>
+            <div className="text-neutral-400 text-sm leading-relaxed">
+              Every pull request is automatically summarized so you instantly
+              understand what changed without reading hundreds of lines of code.
+            </div>
+          </div>
+
+          <div className="bg-neutral-900/60 backdrop-blur border border-neutral-800 rounded-2xl p-8 hover:border-neutral-600 transition">
+            <div className="text-xl font-semibold text-white mb-3">
+              Bug Risk Detection
+            </div>
+            <div className="text-neutral-400 text-sm leading-relaxed">
+              AI highlights potential risks, suspicious patterns, and fragile
+              code so your team can catch issues before they reach production.
+            </div>
+          </div>
+
+          <div className="bg-neutral-900/60 backdrop-blur border border-neutral-800 rounded-2xl p-8 hover:border-neutral-600 transition">
+            <div className="text-xl font-semibold text-white mb-3">
+              Smarter Code Reviews
+            </div>
+            <div className="text-neutral-400 text-sm leading-relaxed">
+              Get actionable suggestions that improve readability, structure,
+              and maintainability across your entire codebase.
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center text-xl text-center mt-20 text-neutral-900">
           Get started and see how PRwise helps you process your code in a
           fraction of the time.
         </div>
@@ -172,6 +207,89 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <footer className="w-full bg-neutral-950 border-t border-neutral-800 text-neutral-400">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div>
+              <div className="text-white text-xl font-semibold">Prwise</div>
+              <p className="mt-4 text-sm leading-relaxed">
+                Intelligent pull‑request reviews powered by AI. Ship cleaner
+                code faster, catch issues early, and help your team maintain
+                consistent quality across every repository.
+              </p>
+            </div>
+
+            <div>
+              <div className="text-white font-semibold mb-4">Product</div>
+              <ul className="space-y-3 text-sm">
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Features
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Pricing
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Integrations
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Changelog
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-white font-semibold mb-4">Resources</div>
+              <ul className="space-y-3 text-sm">
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Documentation
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Guides
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Blog
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Support
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-white font-semibold mb-4">Company</div>
+              <ul className="space-y-3 text-sm">
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  About
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Careers
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Privacy
+                </li>
+                <li className="hover:text-white transition-colors cursor-pointer">
+                  Terms
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-16 pt-8 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+            <div>© {new Date().getFullYear()} Prwise. All rights reserved.</div>
+            <div className="flex gap-6">
+              <span className="hover:text-white cursor-pointer transition-colors">
+                Twitter
+              </span>
+              <span className="hover:text-white cursor-pointer transition-colors">
+                GitHub
+              </span>
+              <span className="hover:text-white cursor-pointer transition-colors">
+                LinkedIn
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

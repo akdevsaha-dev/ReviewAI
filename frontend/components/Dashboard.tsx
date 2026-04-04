@@ -156,7 +156,7 @@ export const Dashboard = ({ workspaceId }: { workspaceId: string }) => {
                 {prs.map((pr) => (
                   <tr
                     key={pr.id}
-                    className="border-b border-white/5 dark:hover:bg-white/2 hover:bg-black/2 transition"
+                    className="border-b dark:border-white/5 border-black/5 dark:hover:bg-white/2 hover:bg-black/2 transition"
                   >
                     <td className="px-6 py-4 dark:text-white text-neutral-600 font-medium">
                       {pr.title}
