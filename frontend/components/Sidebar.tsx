@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  FileScan,
-  GitBranch,
-  LayoutDashboard,
-  Settings,
-  Wallet,
-} from "lucide-react";
+import { GitBranch, LayoutDashboard, Settings, Wallet } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
@@ -30,11 +24,6 @@ export const SideBar = () => {
       label: "Pull Requests",
       href: `/repos/${workspaceName}/${workspaceId}`,
       icon: GitBranch,
-    },
-    {
-      label: "AI Review",
-      href: `/review/${workspaceName}/${workspaceId}`,
-      icon: FileScan,
     },
     { label: "Workspaces", href: `/workspaces`, icon: Wallet },
     {

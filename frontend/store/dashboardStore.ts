@@ -2,7 +2,7 @@ import { axiosInstance } from "@/utils/instance";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
-type Metrics = {
+export type Metrics = {
   totalPRs: number;
   openPRs: number;
   highRiskPRs: number;

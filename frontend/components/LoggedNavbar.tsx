@@ -10,6 +10,10 @@ export const LoggedNav = () => {
   const params = useParams();
   const pathname = usePathname();
   const firstPath = pathname.split("/")[1] || "";
+  const sectionLabel =
+    firstPath === "repos"
+      ? "Pull requests"
+      : firstPath.charAt(0).toUpperCase() + firstPath.slice(1);
 
   const workspaceId = Array.isArray(params.workspaceId)
     ? params.workspaceId[0]
@@ -44,7 +48,7 @@ export const LoggedNav = () => {
         <div className="font-semibold dark:text-white text-black">PRwise</div>
         <div className="dark:text-neutral-400 text-neutral-500">/</div>
         <div className="text-sm dark:text-neutral-400 text-neutral-500">
-          {firstPath.charAt(0).toUpperCase() + firstPath.slice(1)}
+          {sectionLabel}
         </div>
       </div>
 
