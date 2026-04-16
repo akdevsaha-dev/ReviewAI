@@ -199,3 +199,39 @@ export const deleteWorkspace = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getWorkspaces = async (req: Request, res: Response) => {
+  const session = req.session;
+
+  if (!session) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const ownerId = session.user.id;
+    const workspaces = await prisma.workspace.findMany({
+      where: {
+        ownerId,
+      },
+      include: {
+        githubAppInstallation: {
+          select: {
+            id: true,
+            accountLogin: true,
+            accountType: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return res.status(200).json({ workspaces });
+  } catch (error) {
+    console.error("Error fetching workspaces", error);
+    return res.status(500).json({
+      error: "Failed to fetch workspaces",
+    });
+  }
+};

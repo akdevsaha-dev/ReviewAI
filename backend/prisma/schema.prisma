@@ -42,7 +42,7 @@ model Workspace {
 
 model GithubAppInstallation {
   id             String    @id @default(uuid())
-  installationId String    @unique
+  installationId String
   accountLogin   String    @default("unknown")
   accountType    String    @default("User")
   createdAt      DateTime  @default(now())
