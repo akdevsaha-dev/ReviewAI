@@ -80,7 +80,7 @@ export function DashboardMetrics({ metrics, lastAnalysis }: Props) {
           <div className="text-xs font-semibold text-neutral-500">
             Last Analysis
           </div>
-          <div className="text-2xl font-bold mt-7">{lastAnalysis}</div>
+          <div className="text-xl font-bold mt-5">{lastAnalysis}</div>
           <div className="text-sm text-neutral-500">Auto-analyzing</div>
         </div>
         <div>

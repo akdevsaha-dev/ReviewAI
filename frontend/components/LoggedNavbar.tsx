@@ -52,12 +52,9 @@ export const LoggedNav = () => {
         </div>
       </div>
 
-      {/* Right */}
       <div className="flex gap-5 items-center">
-        {/* Github Status */}
         <div className="text-sm">
           {isGettingStatus ? (
-            /* Skeleton */
             <div className="flex items-center gap-2 px-3 py-2 rounded-2xl dark:bg-neutral-800 bg-neutral-200 animate-pulse">
               <div className="w-3.5 h-3.5 rounded bg-neutral-300 dark:bg-neutral-700"></div>
               <div className="w-24 h-3 rounded bg-neutral-300 dark:bg-neutral-700"></div>
@@ -115,7 +112,6 @@ export const LoggedNav = () => {
           )}
         </div>
 
-        {/* User Avatar */}
         <div>
           {isGettingUser ? (
             <div className="w-8 h-8 rounded-full bg-neutral-300 dark:bg-neutral-700 animate-pulse"></div>

@@ -19,27 +19,27 @@ export const Dashboard = ({ workspaceId }: { workspaceId: string }) => {
   }, [fetchDashboard, workspaceId]);
   const lastAnalysis = metrics?.lastAnalysis
     ? formatDistanceToNow(new Date(metrics.lastAnalysis), { addSuffix: true })
-        .replace(" seconds", "s")
-        .replace(" second", "s")
-        .replace(" minutes", "m")
-        .replace(" minute", "m")
-        .replace(" hours", "h")
-        .replace(" hour", "h")
-        .replace(" days", "d")
-        .replace(" day", "d")
-        .replace(" months", "mo")
-        .replace(" month", "mo")
-        .replace(" years", "y")
-        .replace(" year", "y")
+      .replace(" seconds", "s")
+      .replace(" second", "s")
+      .replace(" minutes", "m")
+      .replace(" minute", "m")
+      .replace(" hours", "h")
+      .replace(" hour", "h")
+      .replace(" days", "d")
+      .replace(" day", "d")
+      .replace(" months", "mo")
+      .replace(" month", "mo")
+      .replace(" years", "y")
+      .replace(" year", "y")
     : "No analysis yet";
 
   if (isDashboardLoading) {
     return <DashboardSkeleton />;
   }
   return (
-    <div className="min-h-[200vh] w-full space-y-6 px-5">
+    <div className="min-h-screen w-full space-y-6 px-6 py-8">
       <DashboardMetrics metrics={metrics} lastAnalysis={lastAnalysis} />
-      <div>
+      <div className="pt-4">
         <PullRequestsTable prs={prs} />
       </div>
     </div>
