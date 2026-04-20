@@ -1,5 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { handleOnboardingComplete } from "@/lib/actions";
+
 
 export const Success = () => {
   const workspaceId = useSearchParams().get("workspaceId");
@@ -50,15 +52,17 @@ export const Success = () => {
       </div>
 
       <button
-        onClick={() => {
+        onClick={async () => {
+          await handleOnboardingComplete();
           router.push(
             `/dashboard/${workspaceName}/${workspaceId}/?connected=github`,
           );
         }}
-        className="w-67.5 h-12 flex items-center justify-center bg-neutral-800 mt-16 rounded-md"
+        className="w-67.5 h-12 flex hover:cursor-pointer items-center justify-center bg-neutral-800 mt-16 rounded-md"
       >
         Open PRwise
       </button>
+
     </div>
   );
 };

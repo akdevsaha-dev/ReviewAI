@@ -54,7 +54,10 @@ export const workspaceSetup = async (req: Request, res: Response) => {
         ownerId,
       },
     });
+
     const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3001";
+
+
 
     if (workspaceCount === 0) {
       return res.status(201).json({
@@ -235,3 +238,27 @@ export const getWorkspaces = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const completeOnboarding = async (req: Request, res: Response) => {
+  const session = req.session;
+
+  if (!session) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const userId = session.user.id;
+    await prisma.user.update({
+      where: { id: userId },
+      data: { firstLogin: false },
+    });
+
+    return res.status(200).json({ message: "Onboarding completed successfully" });
+  } catch (error) {
+    console.error("Error completing onboarding", error);
+    return res.status(500).json({
+      error: "Failed to complete onboarding",
+    });
+  }
+};
+

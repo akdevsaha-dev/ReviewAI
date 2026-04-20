@@ -9,6 +9,8 @@ import registerappRoute from "./routes/registerapp.route.js";
 import repoRoute from "./routes/repo.route.js";
 import webhookRoute from "./routes/webhooks.route.js";
 import dashboardRoute from "./routes/dashboard.route.js";
+import { prisma } from "./lib/prisma.js";
+
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
@@ -30,8 +32,33 @@ app.get("/api/me", async (req, res) => {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
-  return res.json(session);
+  if (!session) {
+    return res.json(null);
+  }
+
+  const workspaceCount = await prisma.workspace.count({
+    where: {
+      ownerId: session.user.id,
+    },
+  });
+
+  // Auto-migrate: If user has workspaces but firstLogin is still true, set it to false
+  if (workspaceCount > 0 && (session.user as any).firstLogin === true) {
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { firstLogin: false },
+    });
+    // Update the session user object for the immediate response
+    (session.user as any).firstLogin = false;
+  }
+
+  return res.json({
+    ...session,
+    workspaceCount,
+  });
 });
+
+
 
 app.listen(port, async () => {
   console.log(`Server running on http://localhost:${port}`);

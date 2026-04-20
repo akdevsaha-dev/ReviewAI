@@ -26,11 +26,26 @@ export const SignIn = () => {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {
+        onSuccess: async () => {
           setLoading(false);
-          toast.success("Signed up successfully!");
-          router.push("/dashboard");
+          toast.success("Log in successful!");
+          const { data: session } = await authClient.getSession();
+          if (session) {
+            const { user, workspaceCount } = session as any;
+            if (workspaceCount > 0) {
+              router.push("/workspaces");
+            } else if (!user.firstLogin) {
+              router.push("/onboarding/workspace-setup");
+            } else {
+              router.push("/onboarding/welcome");
+            }
+          } else {
+            router.push("/");
+          }
+
+
         },
+
         onError: (ctx) => {
           setLoading(false);
           toast.error(ctx.error.message);

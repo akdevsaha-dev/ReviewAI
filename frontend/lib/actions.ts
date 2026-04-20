@@ -49,3 +49,28 @@ export const handleWorkspaceSetup = async ({
     };
   }
 };
+
+export const handleOnboardingComplete = async () => {
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/api/v1/onboarding/complete",
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+
+    return res.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return {
+        error: error.response?.data?.error ?? "Something went wrong",
+      };
+    }
+
+    return {
+      error: "Something went wrong",
+    };
+  }
+};
+

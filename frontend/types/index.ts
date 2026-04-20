@@ -8,6 +8,7 @@ export type User = {
 
 export type Session = {
   user: User;
+  workspaceCount: number;
   session: {
     id: string;
     userId: string;
@@ -19,3 +20,4 @@ export type Session = {
     userAgent?: string;
   };
 };
+
